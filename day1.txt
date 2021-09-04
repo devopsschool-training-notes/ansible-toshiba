@@ -235,6 +235,13 @@ putty - https://www.devopsschool.com/blog/how-to-login-linux-server-of-aws-from-
 
 
 
-
+Sreepada	65.0.61.12
+Sandhya Rani	3.108.238.112
+nithyasri		65.1.94.141
+Ramya V			15.206.127.94
+Sanchita Rayson Narzary	52.66.180.53
+Monika		13.233.42.203
+13.127.220.239
+3.108.237.44
 
 

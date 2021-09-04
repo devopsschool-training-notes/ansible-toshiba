@@ -337,6 +337,124 @@ ansible web -i inventory -m service -a"name=httpd state=started" -u=centos --key
 ACS = 3.109.212.160
 centos
 centos123
+============================================================================================
+============================================================================================
+Inventory has following...
+		group of group
+		behaviorial param
+
+inventory
+------------------
+[gog:children]
+web
+db
+
+[web]
+65.0.61.12
+3.108.238.112
+
+[db]
+65.1.94.141
+
+[app]
+4.5.5.5
+4.5.5.6
+4.5.5.7
+4.5.5.8
+4.5.5.9
+appserver1
+appserver2
+
+ansible gog -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible web,db -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+
+====================================================
+behaviorial param
+https://docs.ansible.com/ansible/2.3/intro_inventory.html#list-of-behavioral-inventory-parameters
+
+
+inventory
+------------------
+[web]
+65.0.61.12		user & pass - sudo without password
+3.108.238.112		user & key - sudo with password
+
+[db]
+65.1.94.141	
+
+[app]
+4.5.5.5		ssh - 24
+4.5.5.6		/opt/python
+4.5.5.7		python 2.x
+4.5.5.8		python 3.x
+4.5.5.9
+
+
+inventory
+------------------
+[web]
+65.0.61.12		ansible_user=centos ansible_ssh_private_key_file=node.pem ansible_become=yes
+3.108.238.112		ansible_user=centos ansible_ssh_private_key_file=node.pem ansible_become=yes
+65.1.94.141		ansible_user=centos ansible_ssh_private_key_file=node.pem ansible_become=yes
+
+
+[db]
+3.109.212.160	ansible_user=centos ansible_ssh_pass=centos123 ansible_become=yes
+	
+[gog:children]
+web
+db
+
+[app]
+4.5.5.5		
+4.5.5.6		
+4.5.5.7		
+4.5.5.8		
+4.5.5.9
+
+ansible gog -i inventory -m yum -a"state=present name=httpd" 
+
+
+inventory
+------------------
+[web]
+65.0.61.12		
+3.108.238.112		
+65.1.94.141		
+
+[web:vars]
+ansible_user=centos 
+ansible_ssh_private_key_file=node.pem 
+ansible_become=yes
+
+[db]
+3.109.212.160	ansible_user=centos ansible_ssh_pass=centos123 ansible_become=yes
+	
+[gog:children]
+web
+db
+
+[app]
+4.5.5.5		
+4.5.5.6		
+4.5.5.7		
+4.5.5.8		
+4.5.5.9
+
+ansible gog -i inventory -m yum -a"state=present name=httpd"
+
+
+Assignment
+======================================
+Create a post for...
+List out Top 20 things you do in your Dev/QA/Staging env and find out Module of Ansible for the Same.
+
+
+
+
+
+
+
 
 
 

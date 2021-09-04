@@ -1,0 +1,201 @@
+Lab - AWS
+-----------------
+Demo --> Lab --> Assignment
+
+9:00 - 5 PM IST. 5PM - 6PM
+----------------------------
+Demo-Lab-Assig   Project/QA
+===============================================
+Lunch Time - 1:00 
+-----------------------
+2 BREAK - 15 mins. - 
+	11 AM
+	3:30 PM
+==============================================================================
+==============================================================================
+
+What is Ansible?
+---------------------------------
+	Config Mgmt Tool.
+			for Server(S)
+	Written in Python
+	Release
+		Ansible		CMD - FREE - OS
+		Ansible Tower	GUI - PAID - Enterprise
+		Ansible AWX	GUI - FREE - LATEST VERSION OF TOWER which is not tested - No Support
+	From Redhat --> iBM
+	Version
+		2.9X
+	Ansible is AgentLesss
+
+	Tool
+	----------
+	- Save time
+		1 dep ------> 10 mins
+		100 Dep -----> 10 mins
+	- Save Cost
+		Manage server(S) & Env & COnsistency...So 
+	- Improve Quality
+	-------------------
+
+	What is Config mgmt?
+	-------------------------
+	You are managing Server(S) Config mgmt
+
+	What is there in EACH server? So We manage a config of it???
+	--------------------------------------------------
+	Ansible - Hypervisors
+				Hardware
+					HDD
+					RAM
+					CPU
+	Software
+		Resources		Action
+	===================================================================
+		file			C | E | D
+		directory		C | E | D
+		user			A | E | D
+		group			A | E | D
+		yum			I | R | U
+		apt			I | R | U
+		cmd			run cmd & options
+		bash			run cmd & options
+		package			i r u
+		services		S S R E D
+		
+Why Ansible?
+================================================================
+Easy to Learn - Test - Debug - Share - Extend - Use
+		Compare to 
+		---- python - Java - ruby
+		FOR
+			Managing a Config of servers.
+		Its a DOMAIN SPECIFIC TOOL
+
+		CMD ---> ONLY WITH WINDOWS
+		BASH ---> ONLY WITH LINUX
+		ANSIBLE for ALL.
+		--- Platform independent
+
+		Ansible has a feature - IDEOMPOTENT
+		--------------------------------------
+		DESIRE ==== ACTUAL == NO CHANGES
+		DESIRE == NOT MATCHED== ACTUAL == CHANGES
+
+		1st RUN - 10 Steps --- Each Step 1 mins ---->  10 mins
+		2nd RUN - 10/3 Steps --- Each Step 1 mins ---->  3 mins
+							-------------------------
+								7 mins
+
+
+		Ansible has ability to change a config of server 
+								- Parrell
+		===============================================================
+		Ansible can manage config of Server(S) Parrell
+		===============================================================
+
+Other tools
+-----------------------------------------
+CODE --> Ansible - Puppet - chef - Salt - cfengine
+GUI  --> Octotus Deploy - UDeploy
+
+How Ansible Works?? Ansible Arch?
+========================================================================
+
+HUMAN -> ACS(Ansible Control Server)  -------> ARS(Ansible Remote Server)
+------------------------------------------------------------------------------
+	LINUX					WINDOWS - LINUX - ANY
+	64 BIT 					ANY
+	----------------------------------------------------
+	Ansible					- NO AGENT REQUIRED
+
+	---------------------------------------------------------------
+	Python 2.7+				WINDOWS ---> DOTNET 4.5 & PS3.0
+						LINUX -- python 2.7+
+	-----------------------------------------------------------------
+			------SSH------------- LINUX
+			------HTTP(winrm)----- WINDOWS
+
+Component of ACS
+=====================================================
+1. Ansible - Its tool which need to be installed.
+		- Tools	--- Collection of Executable(10+)
+		- Plugins ---> its CODE(python) which Define a FEATURE/FUNCTIONALITY of Ansible
+			- CORE by Ansible
+			- External by Community
+		- Modules ---> its CODE(python+ps) BUT this code run/execute in ARS with required param.
+				copy (src - dest) 
+				yum	(i - u r )
+				apt	(i - u r )
+				service	(S S E D)
+				package	(i U )
+					
+		- Config	- Its a file to Modify behaviour of Ansible Exeutables.
+			/etc/ansible/ansible.cfg
+
+2. Ansible Inventory
+		Its List of IP Address of ARS
+		    ----    ---------
+
+		List can be mention in form of
+		- CMD
+		- FILE
+		- SCRIPT
+
+3. Ansible Playbook
+		its SCRIPT(Containing Modules)
+		runs in ARS
+
+=====================================================================
+How to install Ansible?
+=========================================================================
+3.109.108.47
+https://www.devopsschool.com/blog/how-to-install-ansible-in-centos-7-rhel-7/
+
+
+
+[root@ip-172-31-7-145 files]# ansible --version
+ansible 2.9.25
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.5 (default, Aug  7 2019, 00:51:29) [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]
+[root@ip-172-31-7-145 files]#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

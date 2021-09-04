@@ -195,7 +195,7 @@ ADHOC
 
 	using ADHOC command 
 		Do one task in ONE MACHINE(localhost)													
-		Do one task in ONE REMOTE MACHINE																
+		Do one task in ONE REMOTE MACHINE														
 		Do one task in MULTIPLE REMOTE MACHINES using Inventory					  
 		Do one task in MULTIPLE REMOTE MACHINES using group in Inventory	 
 		
@@ -208,7 +208,7 @@ ADHOC
 		Do Multiple tasks(Playbook) in MULTIPLE REMOTE MACHINE using environment directory Inventory 
 		
 	using Role(Program)
-		Do One Role in in ONE MACHINE(localhost)
+		Do One Role in in ONE MACHINE(localhosts)
 		Do Multiple Roles in ONE REMOTE MACHINE
 		Do Multiple Roles in MULTIPLE REMOTE MACHINE using Inventory
 		Do Multiple Roles in MULTIPLE REMOTE MACHINE using group in Inventory
@@ -234,7 +234,7 @@ putty - https://www.devopsschool.com/blog/how-to-login-linux-server-of-aws-from-
 
 
 
-
+---------------ARS---------------------
 Sreepada	65.0.61.12
 Sandhya Rani	3.108.238.112
 nithyasri		65.1.94.141
@@ -243,5 +243,104 @@ Sanchita Rayson Narzary	52.66.180.53
 Monika		13.233.42.203
 Bhavya K S 13.127.220.239
 Priyanka	3.108.237.44
+================================================================================
+
+ACS FINAL - 3.109.212.160
+
+
+How can you connect to remote machine using SSH?
+======================================================
+
+ACS				ARS
+========================================================
+Authenticate - How to login?
+				username & password			-u -k	
+				username & key				-u --key-file 
+Authorize - What i can do?	
+				sudo without password			-b		
+				sudo with password			-b -K
+				sudo with diff user and password 	-b --become-user -K
+
+MY COMBINATION
+-- 
+-u --key-file -b
+-u -k -b
+
+REMOTE MACHINE
+======================================================
+Inventory
+----------------------------------
+		Its List of IP Address of ARS
+		    ----    ---------
+
+		List can be mention in form of
+		- CMD
+		- FILE
+		- SCRIPT
+		-------------------------------
+		group
+		group of group
+		behaviorial param
+		vars
+		host vars
+		group var
+
+
+65.0.61.12,
+
+GROUP in inventory - Collection of IPS, put it one group of inventory
+- all
+
+
+ansible localhost -m yum -a"state=present name=httpd" -b
+ansible localhost -m copy -a"dest=/var/www/html src=index.html" -b
+ansible localhost -m service -a"name=httpd state=started" -b
+
+ansible all -i 65.0.61.12, -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12, -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12, -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+ansible all -i 65.0.61.12,3.108.238.112, -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12,3.108.238.112, -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12,3.108.238.112, -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+inventory
+------------------
+
+65.0.61.12
+3.108.238.112
+65.1.94.141
+
+ansible all -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible all -i inventory -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible all -i inventory -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+
+inventory
+------------------
+[web]
+65.0.61.12
+3.108.238.112
+
+[db]
+65.1.94.141
+
+
+ansible web -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible web -i inventory -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible web -i inventory -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+ACS = 3.109.212.160
+centos
+centos123
+
+
+
+
+
 
 

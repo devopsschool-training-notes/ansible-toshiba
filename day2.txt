@@ -1,0 +1,130 @@
+ACS
+35.154.128.2
+
+
+Sreepada	13.232.70.45
+Sandhya Rani	15.207.89.240
+nithyasri	13.235.67.116
+Ramya V		3.109.203.248
+Sanchita Rayson Narzary	13.232.181.124
+Monika		65.1.91.98
+Bhavya K S	3.109.202.233	
+Dhanush
+
+==========================================================
+What is Playbook?
+	a yaml file
+	collection of play
+
+What is Play?
+	Has spec of Hosts & Tasks
+	- AKA - RUN Many modules with param on this Hosts.
+What is Hosts?
+	- localhost
+	- group
+	- group of group
+What is Task?
+	- a Module & its param
+
+
+Hosts:
+Tasks:
+    - Module 1 & Its Param
+    - Module 2 & Its Param	
+    - Module 3 & Its Param
+    - Module 4 & Its Param
+
+Hosts:
+Tasks:
+    - Module 1 & Its Param
+    - Module 2 & Its Param	
+    - Module 3 & Its Param
+    - Module 4 & Its Param
+
+
+
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+  - name: Install Apache in centos7
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+  - name: Copy index.html
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Starting a Apache Server
+    ansible.builtin.service:
+      name: httpd
+      state: started
+========================================================================
+
+Project - Setup a webserver
+
+Step 1 - Install httpd server			- Findout Module & Its Param	- yum [state=present name=httpd]
+Step 2 - Copy index.html /var/www/html		- Findout Module & Its Param	- Copy [ dest=/var/www/html src=index.html]
+Step 3 - Start httpd server			- Findout Module & Its Param	- service [ name=httpd state=started]
+
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name: httpd
+      state: latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: httpd
+      state: started
+
+
+-------------------
+[web]
+35.154.128.2
+13.232.70.45
+15.207.89.240
+
+
+$ ansible-playbook -i inventory first.yaml -u centos --key-file=node.pem -b
+
+
+
+-u centos --key-file=node.pem -b
+
+ansible_user=centos
+ansible_ssh_private_key_file=node.pem
+ansible_become=yes
+
+$ ansible-playbook -i inventory first.yaml
+
+==================================================
+Lab = 10 mins..
+------------------------
+Assignment -----
+https://www.devopsschool.com/blog/ansible-playbook-lab-excercise-part-2/
+@BestDevOps.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

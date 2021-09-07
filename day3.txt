@@ -118,6 +118,20 @@ Lab ====  DO WHAT I DID
 Assingment
 https://www.devopsschool.com/blog/ansible-playbook-lab-excercise-part-3/
 
+ACS
+---------------------------------------------
+52.66.22.152
 
+
+Sreepada	35.154.52.66
+Sandhya Rani	13.233.43.66
+nithyasri	13.233.65.66
+Ramya V		13.235.81.219
+Sanchita Rayson Narzary	3.108.59.188
+Monika		13.232.234.38
+Bhavya K S	3.109.212.31	
+Dhanush		3.108.250.22
+Priynaka 	65.0.73.113
+Vijay - 	3.109.216.199	
 
 

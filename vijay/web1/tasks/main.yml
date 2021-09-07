@@ -1,0 +1,30 @@
+---
+# tasks file for web
+
+  - name: Install the latest version of Apache
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - httpd
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is = {{ myname }}
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Start service httpd, if not started
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+

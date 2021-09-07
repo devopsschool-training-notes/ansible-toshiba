@@ -1,0 +1,17 @@
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name: httpd
+      state: present
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: httpd
+      state: started

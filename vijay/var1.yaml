@@ -1,0 +1,24 @@
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    packagename: httpd
+    servicename: httpd
+    name: vijay
+    age: 24
+
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+
+

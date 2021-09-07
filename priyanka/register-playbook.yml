@@ -1,0 +1,47 @@
+---
+- name: Variable declarations
+  hosts: web
+  vars:
+   packname: httpd
+   myname: Priyanka Chowdary
+   myage: 22
+  vars_files:
+   - var-declare.yml
+  vars_prompt:
+    - name: "Version"
+      prompt: "Which version Do you want to install?"
+      private: false
+    - name: "myage"
+      prompt: "Age is"
+      private: false
+
+  tasks:
+  - name: Install Apache
+    yum:
+      name: "{{packname}}"
+      state: latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: "{{packname}}"
+      state: started
+  - name: var include
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is {{ myname }} and My age is {{ myage }}
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: Age is {{myage}}
+  - name: Ansible register variable basic example
+    shell: find *.yml
+    vars:
+     myage: 18
+    args:
+      chdir: "/home/centos/ansible/priyanka"
+    register: find_output
+  - debug:
+      var: find_output.stdout_lines[0]

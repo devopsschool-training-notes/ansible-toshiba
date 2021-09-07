@@ -1,0 +1,7 @@
+---
+- name: Apache webserver
+  hosts: web
+  
+  roles:
+    - apache-server
+

@@ -1,0 +1,28 @@
+---
+- name: Assignment 2
+  hosts: localhost
+  vars:
+    webserver: httpd 
+   
+  tasks:
+  - name: Install the latest version of webserver
+    yum:
+      name={{ webserver}}
+      state=latest
+    when: ansible_os_family == "RedHat"
+  - name: Install the latest version of webserver
+    apt:
+      name={{ webserver}}
+      state=latest
+    when: ansible_os_family == "Ubuntu"
+  - name: Install the latest version of webserver
+    apt:
+      name={{ webserver}}
+      state=latest
+    when: ansible_os_family == "Ubuntu"
+  - name: Return motd to registered var
+    ansible.builtin.command: ls /etc
+    register: find_output
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: The list in directory /etc {{ find_output.stdout_lines }}

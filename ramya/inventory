@@ -1,0 +1,9 @@
+[web]
+35.154.128.2
+13.232.70.45
+3.109.203.248
+
+[web:vars]
+ansible_user=centos 
+ansible_ssh_private_key_file=node.pem 
+ansible_become=yes

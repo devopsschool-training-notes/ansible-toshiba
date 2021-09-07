@@ -1,0 +1,17 @@
+[web]
+52.66.22.152 
+13.233.43.66
+65.0.73.113
+
+[db]
+65.0.73.113
+13.233.43.66
+
+[web:vars]
+ansible_user=centos
+ansible_ssh_private_key_file=node.pem
+ansible_become=yes
+packagename=httpd
+myname=priyanka
+age=22
+servicename=httpd

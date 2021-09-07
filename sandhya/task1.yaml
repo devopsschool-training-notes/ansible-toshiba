@@ -1,0 +1,8 @@
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html

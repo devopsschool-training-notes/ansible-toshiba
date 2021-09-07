@@ -1,0 +1,27 @@
+- name: This sets up an httpd webserver
+  hosts: localhost
+  vars_prompt:
+    - name: "servicename"
+      prompt: "Enter service name"
+      private: false
+
+  tasks:
+  - name: Install the httpd apps
+    yum:
+      name={{ servicename }}
+      state=latest
+  - name: 
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: Service name {{ servicename }}
+  - name: copy index.html
+    ansible.builtin.template:
+     src: index.html.j2
+     dest: /var/www/html/
+ -  name: Start service httpd, if not started
+    ansible.builtin.service:
+     name: "{{servicenamename}}"
+     state: started

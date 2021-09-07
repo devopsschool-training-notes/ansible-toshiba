@@ -1,0 +1,28 @@
+---
+- name: Template module and zinza2 module
+  hosts: dev,qa
+
+  tasks:
+  - name: Install latest httpd
+    yum:
+      name: httpd
+      state: latest
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Start service httpd, if not started
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: Port {{ port }}
+
+  handlers:
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=restarted

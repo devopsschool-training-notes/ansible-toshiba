@@ -1,0 +1,6 @@
+---
+- name: Install Apache and run on port 8080
+  hosts: all
+   
+  roles:
+    - dev

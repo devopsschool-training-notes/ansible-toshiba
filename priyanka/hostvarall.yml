@@ -1,0 +1,2 @@
+- include: hostvartask1.yml
+- include: hostvartask2.yml

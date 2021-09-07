@@ -1,0 +1,10 @@
+---
+- name: Clone git repo
+  hosts: web
+
+  tasks:
+  - name: clone git repo
+    git:
+      dest: /home/centos/bhavya
+      repo: "https://github.com/scmgalaxy/ansible-role-template"
+      clone: yes

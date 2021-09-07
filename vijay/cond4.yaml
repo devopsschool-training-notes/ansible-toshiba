@@ -1,0 +1,29 @@
+- name: Update web servers
+  hosts: web
+   
+  tasks:
+  - name: Install the latest version of Apache on RedHat
+    yum:
+      name=httpd
+      state=latest
+    when: ansible_os_family == "RedHat"
+  - name: Install the latest version of Apache on Debian
+    apt:
+      name=apache2
+      state=latest
+    when: ansible_os_family == "Debian"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+   - name: List all files and directories in /etc
+      shell: ls /etc
+      register: dir_contents
+    - name: Print directory contents using loops
+      debug:
+        msg: "This is a directory /file in /etc : {{ item }}"
+      loop: "{{ dir_contents.stdout_lines }}"

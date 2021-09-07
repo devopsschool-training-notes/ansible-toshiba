@@ -1,0 +1,6 @@
+---
+# handlers file for apache-server
+- name: Start service httpd, if not started
+  ansible.builtin.service:
+    name: httpd
+    state: restarted

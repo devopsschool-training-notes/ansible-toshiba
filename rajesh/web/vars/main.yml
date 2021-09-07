@@ -1,0 +1,4 @@
+---
+# vars file for web
+    myname: raju in vars
+    portnum: 8080

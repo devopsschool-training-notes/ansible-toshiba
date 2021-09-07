@@ -1,0 +1,21 @@
+- name: Update web servers
+  hosts: web
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: include default step variables
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ myname }} and My age is {{ age }}

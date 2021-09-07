@@ -1,0 +1,27 @@
+---
+# tasks file for apache
+  - name: Install the latest version of Apache
+    yum:
+      name=httpd
+      state=latest
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Start service httpd, if not started
+  - name: Start service httpd
+    ansible.builtin.service:
+      name=httpd
+      state=started
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: my name is {{ myname }} on port {{ portnum}}

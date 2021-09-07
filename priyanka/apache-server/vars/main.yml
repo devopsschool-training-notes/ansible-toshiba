@@ -1,0 +1,5 @@
+---
+# vars file for apache-server
+    myname: Priyanka in vars
+    portnum: 8080
+

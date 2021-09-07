@@ -1,0 +1,9 @@
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+    - name: Include task list in play grpvartask1.yaml
+      include: grpvartask1.yml
+    - name: Include task list in play grpvartask2.yml
+      include: grpvartask2.yml

@@ -1,0 +1,9 @@
+---
+- name: Install package httpd server
+  hosts: web
+  
+  tasks:
+  - name: Install package httpd
+    yum:
+      name=httpd
+      state=absent

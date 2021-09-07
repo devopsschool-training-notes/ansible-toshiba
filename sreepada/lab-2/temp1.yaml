@@ -1,0 +1,28 @@
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    myname: raju
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - httpd
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is = {{ myname }}
+

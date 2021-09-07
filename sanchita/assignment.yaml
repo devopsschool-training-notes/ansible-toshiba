@@ -1,0 +1,48 @@
+---
+- name: Playbook Assignment
+  hosts: web
+
+  tasks:
+  - name: Create group called deploy
+    group:
+      name: Deploy
+      state: present
+  - name: Create user in group with bin bash shell
+    user:
+      name: deploy-user
+      state: present
+  - name: Install the latest version of Apache
+    yum:
+      name: httpd
+      state: latest
+  - name: Create file second in var/www/html
+    file:
+      path: /var/www/html/second.html
+      state: touch
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    service:
+      name: httpd
+      state: started
+  - name: Install the latest version of git and wget
+    yum:
+      name: git
+      state: latest
+    yum:
+      name: wget
+      state: latest
+- name: Playbook localhost
+  hosts: localhost
+
+  tasks:
+  - name: Clone repository
+    git:
+      repo: 'https://github.com/scmgalaxy/ansible-role-template'
+      dest: /home/centos/ansible/sanchita
+      clone: yes
+  - name: Start service httpd, if not started
+    reboot:
+

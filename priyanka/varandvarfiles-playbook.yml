@@ -1,0 +1,21 @@
+---
+- name: Variable declarations
+  hosts: web
+  vars:
+   packname: httpd
+   myname: Priyanka Chowdary
+   myage: 22
+
+  tasks:
+  - name: Install Apache
+    yum:
+      name: "{{packname}}"
+      state: latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: "{{packname}}"
+      state: started

@@ -1,0 +1,9 @@
+---
+- name: creat a file index.html in path
+  hosts: web
+
+  tasks:
+  - name: create a file index.html
+    file:
+      path: "/var/www/htmlindex.html"
+      state: touch

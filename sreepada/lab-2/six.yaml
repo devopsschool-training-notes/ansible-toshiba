@@ -1,0 +1,8 @@
+---
+- name: Reboot self machine
+  hosts: web
+    
+  tasks: 
+  - name: Reboot self machine 
+    reboot:
+      reboot_timeout: 3600

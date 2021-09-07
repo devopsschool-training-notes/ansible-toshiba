@@ -1,0 +1,5 @@
+---
+# vars file for web1
+ myname: vijay in vars
+    portnum: 8080
+

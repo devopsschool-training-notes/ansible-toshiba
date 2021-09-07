@@ -1,0 +1,29 @@
+---
+- name: Variable precedence
+  hosts: localhost
+  vars:
+    myname: Sanchita
+  vars_prompt:
+    - name: "myname"
+      prompt: "What is your name?"
+      private: false
+
+  tasks:
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ myname }}
+  - name: include default step variables
+    include_vars: var-include.yaml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ myname }}
+  - name: Ansible register variable basic example
+    shell: "find *.yaml"
+    args:
+      chdir: "/home/centos/ansible/sanchita"
+    register: find_output
+  - debug:
+      var: find_output.stdout_lines[0]
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is  {{ myname }}

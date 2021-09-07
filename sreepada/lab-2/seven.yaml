@@ -1,0 +1,14 @@
+---
+- name: To install a package "git" & "wget"
+  hosts: web
+
+  tasks:
+  - name: Install git
+    yum:
+      name: git
+      state: present
+ 
+  - name: Install wget
+    yum:
+      name: wget
+      state: latest

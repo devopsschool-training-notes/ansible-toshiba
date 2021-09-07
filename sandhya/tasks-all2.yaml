@@ -1,0 +1,10 @@
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+    - name: Include task list in play task1.yaml
+      include:{{ item }}
+      with_items:
+        - task1.yaml
+        - task2.yaml

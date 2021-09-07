@@ -1,0 +1,6 @@
+---
+# defaults file for apache-server
+
+    myname: Priyanka in default
+    portnum: 8080
+

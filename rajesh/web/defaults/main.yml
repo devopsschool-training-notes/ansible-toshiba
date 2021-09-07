@@ -1,0 +1,5 @@
+---
+# defaults file for web
+
+    myname: raju in default
+    portnum: 8080

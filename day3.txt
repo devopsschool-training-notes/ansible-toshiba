@@ -1,0 +1,123 @@
+Inventory
+----------------------------------------
+- group 		DONE
+- group of group 	DONE
+- Behavioiral param 	DONE
+- vars			DONE
+- groups vars		DONE
+- Hosts vars		DONE
+
+--------------------
+Working with Multiple Playbook
+
+-----------------------------------------
+Working with ROLES
+
+ACS
+---------------------------------------------
+52.66.22.152
+
+ARS
+-----------------------------------------
+52.66.22.152
+35.154.52.66
+13.233.43.66
+
+
+---
+- name: Update web servers
+  hosts: web
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: include default step variables
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ myname }} and My age is {{ age }}
+
+------------------------------------------
+- group vars	= vars of group = using directory
+- Host vars	= vars of host  = using directory
+
+RULE
+-- all group vars must in a file named with name of of the group inside a dir of group_vars
+-- all host vars must in a file named with name of of the host inside a dir of host_vars
+
+BEST P
+-----------
+We do not specify vars in inventory
+We use group_vars and host_vars
+-------------------------------------------
+[web]
+52.66.22.152 
+35.154.52.66
+13.233.43.66
+
+[web:vars]
+ansible_user=centos
+ansible_ssh_private_key_file=node.pem
+ansible_become=yes
+packagename=httpd
+servicename=httpd
+myname=Rajesh
+age=23
+
+
+packagename: httpd
+servicename: httpd
+myname: Rajesh in Host 52.66.22.152
+age: 23
+
+
+----------------------------------------
+----------------------------------------
+Working with Multiple Playbook
+----------------------------------------
+----------------------------------------
+TOO MANY PLAYBOOk?
+--------------------------
+1 LARGE PLAYBOOK = 1 PLAY
+		 ---> 1 Play BUT Multiple Tasks file
+1 LARGE PLAYBOOK = MULTIPLE PLAY
+		-----> Master Playbook
+			--- Call it diff diff play
+https://www.devopsschool.com/blog/ansible-include-scnario-with-list-of-plays-or-tasks/
+
+
+- include: play-free1.yaml
+- include: play-free2.yaml
+
+
+
+
+-----------------------------------------------
+QS:
+Vars in inventory
+Vars in inventory group_vars/all
+Vars in inventory group_vars/group
+Vars in inventory host_vars/host
+------------What is the precedence---------------
+Qs:
+How to set inventory for ansible default?
+-------------------------------
+
+Lab ====  DO WHAT I DID
+
+Assingment
+https://www.devopsschool.com/blog/ansible-playbook-lab-excercise-part-3/
+
+
+
+

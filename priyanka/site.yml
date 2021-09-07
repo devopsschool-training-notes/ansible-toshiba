@@ -1,0 +1,7 @@
+---
+- name: Web Server
+  hosts: web
+
+  roles:
+    - role
+    - geerlingguy.java

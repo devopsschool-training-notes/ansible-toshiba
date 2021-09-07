@@ -1,0 +1,8 @@
+
+---
+- name: Update web servers
+  hosts: web,db
+ 
+  roles:
+    - project1
+    - geerlingguy.nginx

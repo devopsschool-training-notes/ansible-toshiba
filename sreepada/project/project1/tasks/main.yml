@@ -1,0 +1,12 @@
+---
+# tasks file for project1
+
+- name: Update web servers
+  hosts: web,db
+
+  tasks:
+    - name: Include task list in play task1.yaml
+      include: task1.yaml
+    - name: Include task list in play task2.yaml
+      include: task2.yaml
+

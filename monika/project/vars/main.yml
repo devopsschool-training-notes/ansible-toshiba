@@ -1,0 +1,4 @@
+---
+# vars file for project
+  myname: "{{ string_to_echo }}"
+  portnum: 8080 

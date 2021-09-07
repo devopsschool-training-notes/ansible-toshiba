@@ -1,0 +1,17 @@
+ - name: to create group deploy
+    group:
+      name: deloitte
+      state: present
+  - name: to create group deploy which is part of deploy
+    user:
+      name: deloitte-user
+      group: deloitte
+      state: present
+  - name: Install the latest of list item
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - vim

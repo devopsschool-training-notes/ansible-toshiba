@@ -1,0 +1,6 @@
+me: Update web servers
+  hosts: web
+ 
+  roles:
+    - web
+    - geerlingguy.java

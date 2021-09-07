@@ -1,0 +1,9 @@
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: include default step variables
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ myname }} and My age is {{ age }}

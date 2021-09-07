@@ -1,0 +1,45 @@
+---
+# tasks file for role
+- name: Inatsll webserver httpd
+  yum:
+    name={{ packname }}
+    state=installed
+  when: ansible_os_family == "RedHat"
+- name: start webserver
+  ansible.builtin.service:
+    name={{ packname }}
+    state=started
+- name: Copy index.j2
+  ansible.builtin.template:
+    src: index.j2
+    dest: /var/www/html/index.html
+- name: Copy httpd.j2
+  ansible.builtin.template:
+    src: httpd.j2
+    dest: /etc/httpd/conf/httpd.conf
+  notify:
+    - restart webserver after every change
+- name: Register into vars
+  shell: "find *.html"
+  args:
+    chdir: /home/centos/ansible/priyanka/role/files/
+  register: outputvar
+- name: print into index.html
+  ansible.builtin.debug:
+    var: outputvar
+- name: create group deloitte
+  ansible.builtin.group:
+    name=deloitte
+    state=present
+- name: create user deploy
+  ansible.builtin.user:
+    name=deploy
+    state=present
+- name: install tools
+  yum:
+   name={{ item }}
+   state=latest
+  with_items:
+    - git
+    - ntp
+    - vim

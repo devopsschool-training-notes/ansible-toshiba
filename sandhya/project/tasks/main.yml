@@ -1,0 +1,37 @@
+---
+# tasks file for project
+  - name: Install the latest version of Apache
+    yum:
+      name=httpd
+      state=latest
+    when: ansible_os_family == "RedHat"
+  - name: Start service httpd
+    ansible.builtin.service:
+      name=httpd
+      state=started
+  
+  - name: Ansible register variable
+    command: echo "sandhya"
+    register: cat_output
+  - set_fact:
+      string_to_echo: "{{ cat_output.stdout }}"
+
+  - name: copy index file to /var/www/html/
+    ansible.builtin.template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+  - name: copy httpd.conf file to /etc/httpd/conf/
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Start service httpd, if not started
+  
+  - name: install git, vim, ntp
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - vim

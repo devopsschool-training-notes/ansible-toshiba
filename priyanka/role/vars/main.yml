@@ -1,0 +1,6 @@
+---
+# vars file for role
+
+packname: httpd
+port: 8080
+myname: Priyanka

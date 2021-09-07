@@ -134,4 +134,139 @@ Dhanush		3.108.250.22
 Priynaka 	65.0.73.113
 Vijay - 	3.109.216.199	
 
+=============================================================
+
+What is Role?
+===========================
+Its a directory structure -- best practices
+	for what?		
+	---------------
+	Managing following...
+	- tasks			DONE	
+	- vars			DONE
+	- template		DONE
+	- handlers		DONE
+	- files	
+
+How to create role?
+
+$ ansible-galaxy
+
+
+[centos@ip-172-31-4-70 web]$ tree
+.
+├── defaults			- VARS for Playbook						DONE
+│   └── main.yml
+├── files			- All the others files which ur using in playbook		DONE
+├── handlers			- Handlers TASKS						DONE
+│   └── main.yml
+├── meta			- This would have meta info of Role
+│   └── main.yml
+├── README.md
+├── tasks											DONE
+│   └── main.yml		- TASKS
+├── templates			- for all .j2 templates						DONE
+├── tests			- For Test cases
+│   ├── inventory
+│   └── test.yml
+└── vars											DONE
+    └── main.yml		- VARS for Playbook
+
+8 directories, 8 files
+
+
+
+
+  - name: Install the latest version of Apache
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - httpd
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is = {{ myname }}
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Start service httpd, if not started
+
+
+
+
+    myname: raju in vars
+    portnum: 8080
+
+
+    myname: raju in default
+    portnum: 8080
+
+
+How to use role? Play or run?
+--------------------------------
+File name - site.yaml
+
+---
+- name: Update web servers
+  hosts: web
+   
+  roles:
+    - web
+https://www.devopsschool.com/blog/anatomy-of-ansible-play-defined/
+=========================================================================
+
+
+ 1008  clear
+ 1009  ansible-galaxy
+ 1010  ansible-galaxy -h
+ 1011  ansible-galaxy role -h
+ 1012  clear
+ 1013  ansible-galaxy role init web
+ 1014  ls
+ 1015  clear
+ 1033  vi site.yaml
+ 1034  ansible-playbook -i inventory site.yaml
+ 1035  ansible-playbook -i inventory site.yaml clear
+ 1036  ls
+ 1037  clear
+ 1038  ansible-galaxy install geerlingguy.java
+ 1039  ls /home/centos/.ansible/roles/geerlingguy.java
+ 1040  cd ..
+ 1041  ls
+ 1042  cd ra
+ 1043  cd rajesh/
+ 1044  vi site.yaml
+ 1045  java
+ 1046  ansible-playbook -i inventory site.yaml
+ 1047  java
+ 1048  clear
+ 1049  ansible-galaxy roles -h
+ 1050  ansible-galaxy role -h
+ 1051  ansible-galaxy role list
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

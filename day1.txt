@@ -1,0 +1,464 @@
+Lab - AWS
+-----------------
+Demo --> Lab --> Assignment
+
+9:00 - 5 PM IST. 5PM - 6PM
+----------------------------
+Demo-Lab-Assig   Project/QA
+===============================================
+Lunch Time - 1:00 
+-----------------------
+2 BREAK - 15 mins. - 
+	11 AM
+	3:30 PM
+==============================================================================
+==============================================================================
+
+What is Ansible?
+---------------------------------
+	Config Mgmt Tool.
+			for Server(S)
+	Written in Python
+	Release
+		Ansible		CMD - FREE - OS
+		Ansible Tower	GUI - PAID - Enterprise
+		Ansible AWX	GUI - FREE - LATEST VERSION OF TOWER which is not tested - No Support
+	From Redhat --> iBM
+	Version
+		2.9X
+	Ansible is AgentLesss
+
+	Tool
+	----------
+	- Save time
+		1 dep ------> 10 mins
+		100 Dep -----> 10 mins
+	- Save Cost
+		Manage server(S) & Env & COnsistency...So 
+	- Improve Quality
+	-------------------
+
+	What is Config mgmt?
+	-------------------------
+	You are managing Server(S) Config mgmt
+
+	What is there in EACH server? So We manage a config of it???
+	--------------------------------------------------
+	Ansible - Hypervisors
+				Hardware
+					HDD
+					RAM
+					CPU
+	Software
+		Resources		Action
+	===================================================================
+		file			C | E | D
+		directory		C | E | D
+		user			A | E | D
+		group			A | E | D
+		yum			I | R | U
+		apt			I | R | U
+		cmd			run cmd & options
+		bash			run cmd & options
+		package			i r u
+		services		S S R E D
+		
+Why Ansible?
+================================================================
+Easy to Learn - Test - Debug - Share - Extend - Use
+		Compare to 
+		---- python - Java - ruby
+		FOR
+			Managing a Config of servers.
+		Its a DOMAIN SPECIFIC TOOL
+
+		CMD ---> ONLY WITH WINDOWS
+		BASH ---> ONLY WITH LINUX
+		ANSIBLE for ALL.
+		--- Platform independent
+
+		Ansible has a feature - IDEOMPOTENT
+		--------------------------------------
+		DESIRE ==== ACTUAL == NO CHANGES
+		DESIRE == NOT MATCHED== ACTUAL == CHANGES
+
+		1st RUN - 10 Steps --- Each Step 1 mins ---->  10 mins
+		2nd RUN - 10/3 Steps --- Each Step 1 mins ---->  3 mins
+							-------------------------
+								7 mins
+
+
+		Ansible has ability to change a config of server 
+								- Parrell
+		===============================================================
+		Ansible can manage config of Server(S) Parrell
+		===============================================================
+
+Other tools
+-----------------------------------------
+CODE --> Ansible - Puppet - chef - Salt - cfengine
+GUI  --> Octotus Deploy - UDeploy
+
+How Ansible Works?? Ansible Arch?
+========================================================================
+
+HUMAN -> ACS(Ansible Control Server)  -------> ARS(Ansible Remote Server)
+------------------------------------------------------------------------------
+	LINUX					WINDOWS - LINUX - ANY
+	64 BIT 					ANY
+	----------------------------------------------------
+	Ansible					- NO AGENT REQUIRED
+
+	---------------------------------------------------------------
+	Python 2.7+				WINDOWS ---> DOTNET 4.5 & PS3.0
+						LINUX -- python 2.7+
+	-----------------------------------------------------------------
+			------SSH------------- LINUX
+			------HTTP(winrm)----- WINDOWS
+
+Component of ACS
+=====================================================
+1. Ansible - Its tool which need to be installed.
+		- Tools	--- Collection of Executable(10+)
+		- Plugins ---> its CODE(python) which Define a FEATURE/FUNCTIONALITY of Ansible
+			- CORE by Ansible
+			- External by Community
+		- Modules ---> its CODE(python+ps) BUT this code run/execute in ARS with required param.
+				copy (src - dest) 
+				yum	(i - u r )
+				apt	(i - u r )
+				service	(S S E D)
+				package	(i U )
+					
+		- Config	- Its a file to Modify behaviour of Ansible Exeutables.
+			/etc/ansible/ansible.cfg
+
+2. Ansible Inventory
+		Its List of IP Address of ARS
+		    ----    ---------
+
+		List can be mention in form of
+		- CMD
+		- FILE
+		- SCRIPT
+
+3. Ansible Playbook
+		its SCRIPT(Containing Modules)
+		runs in ARS
+
+=====================================================================
+How to install Ansible?
+=========================================================================
+3.109.108.47
+https://www.devopsschool.com/blog/how-to-install-ansible-in-centos-7-rhel-7/
+
+
+
+[root@ip-172-31-7-145 files]# ansible --version
+ansible 2.9.25
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.5 (default, Aug  7 2019, 00:51:29) [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]
+[root@ip-172-31-7-145 files]#
+
+
+What is Ansible and How it works? Explained with Images
+- What is Ansible?
+- Benefits of Ansible?
+- Architecture of Ansible
+- Some Images as an Example
+
+
+===================================================
+Psucode == Requirement
+====================================================
+Project - Setup a webserver
+
+Step 1 - Install httpd server			- Findout Module & Its Param	- yum [state=present name=httpd]
+Step 2 - Copy index.html /var/www/html		- Findout Module & Its Param	- Copy [ dest=/var/www/html src=index.html]
+Step 3 - Start httpd server			- Findout Module & Its Param	- service [ name=httpd state=started]
+
+
+Modules ---> 1000s X 20s of param.
+https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html
+
+"Ansible module for" 
+
+===========================================================
+ADHOC
+
+
+
+
+
+	using ADHOC command 
+		Do one task in ONE MACHINE(localhost)													
+		Do one task in ONE REMOTE MACHINE														
+		Do one task in MULTIPLE REMOTE MACHINES using Inventory					  
+		Do one task in MULTIPLE REMOTE MACHINES using group in Inventory	 
+		
+	using Playbook(Program)
+		Do Multiple tasks(Playbook) in ONE MACHINE(localhost) DONE
+		Do Multiple tasks(Playbook) in ONE REMOTE MACHINE		DONE
+		Do Multiple tasks(Playbook) in MULTIPLE REMOTE MACHINE using Inventory DONE
+		Do Multiple tasks(Playbook) in MULTIPLE REMOTE MACHINE using group in Inventory DONE
+		Do Multiple tasks(Playbook) in MULTIPLE REMOTE MACHINE using group of group in Inventory DONE
+		Do Multiple tasks(Playbook) in MULTIPLE REMOTE MACHINE using environment directory Inventory 
+		
+	using Role(Program)
+		Do One Role in in ONE MACHINE(localhosts)
+		Do Multiple Roles in ONE REMOTE MACHINE
+		Do Multiple Roles in MULTIPLE REMOTE MACHINE using Inventory
+		Do Multiple Roles in MULTIPLE REMOTE MACHINE using group in Inventory
+		Do Multiple Roles in MULTIPLE REMOTE MACHINE using group of group in Inventory
+		Do Multiple Roles in MULTIPLE REMOTE MACHINE using environment directory Inventory
+
+
+----------------------
+ansible localhost -m yum -a"state=present name=httpd" -b
+ansible localhost -m copy -a"dest=/var/www/html src=index.html" -b
+ansible localhost -m service -a"name=httpd state=started" -b
+-------------------------
+Lab1 - Install Ansible
+Lab2 - Run all above commands and under the module websites
+Assignment - https://www.devopsschool.com/blog/ansible-adhoc-commands-lab-excercise-part-1/
+SUBMIT @bestDevOps.com
+
+ssh -i rajesh-mumbai.pem centos@3.109.108.47
+
+
+gitbash - https://git-scm.com/ - PEM
+putty - https://www.devopsschool.com/blog/how-to-login-linux-server-of-aws-from-windows-using-putty/ - PPK
+
+
+
+---------------ARS---------------------
+Sreepada	65.0.61.12
+Sandhya Rani	3.108.238.112
+nithyasri		65.1.94.141
+Ramya V			15.206.127.94
+Sanchita Rayson Narzary	52.66.180.53
+Monika		13.233.42.203
+Bhavya K S 13.127.220.239
+Priyanka	3.108.237.44
+================================================================================
+
+ACS FINAL - 3.109.212.160
+
+
+How can you connect to remote machine using SSH?
+======================================================
+
+ACS				ARS
+========================================================
+Authenticate - How to login?
+				username & password			-u -k	
+				username & key				-u --key-file 
+Authorize - What i can do?	
+				sudo without password			-b		
+				sudo with password			-b -K
+				sudo with diff user and password 	-b --become-user -K
+
+MY COMBINATION
+-- 
+-u --key-file -b
+-u -k -b
+
+REMOTE MACHINE
+======================================================
+Inventory
+----------------------------------
+		Its List of IP Address of ARS
+		    ----    ---------
+
+		List can be mention in form of
+		- CMD
+		- FILE
+		- SCRIPT
+		-------------------------------
+		group
+		group of group
+		behaviorial param
+		vars
+		host vars
+		group var
+
+
+65.0.61.12,
+
+GROUP in inventory - Collection of IPS, put it one group of inventory
+- all
+
+
+ansible localhost -m yum -a"state=present name=httpd" -b
+ansible localhost -m copy -a"dest=/var/www/html src=index.html" -b
+ansible localhost -m service -a"name=httpd state=started" -b
+
+ansible all -i 65.0.61.12, -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12, -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12, -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+ansible all -i 65.0.61.12,3.108.238.112, -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12,3.108.238.112, -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible all -i 65.0.61.12,3.108.238.112, -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+inventory
+------------------
+
+65.0.61.12
+3.108.238.112
+65.1.94.141
+
+ansible all -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible all -i inventory -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible all -i inventory -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+
+inventory
+------------------
+[web]
+65.0.61.12
+3.108.238.112
+
+[db]
+65.1.94.141
+
+
+ansible web -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible web -i inventory -m copy -a"dest=/var/www/html src=index.html" -u=centos --key-file=node.pem -b
+ansible web -i inventory -m service -a"name=httpd state=started" -u=centos --key-file=node.pem -b
+
+
+ACS = 3.109.212.160
+centos
+centos123
+============================================================================================
+============================================================================================
+Inventory has following...
+		group of group
+		behaviorial param
+
+inventory
+------------------
+[gog:children]
+web
+db
+
+[web]
+65.0.61.12
+3.108.238.112
+
+[db]
+65.1.94.141
+
+[app]
+4.5.5.5
+4.5.5.6
+4.5.5.7
+4.5.5.8
+4.5.5.9
+appserver1
+appserver2
+
+ansible gog -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+ansible web,db -i inventory -m yum -a"state=present name=httpd" -u=centos --key-file=node.pem -b
+
+====================================================
+behaviorial param
+https://docs.ansible.com/ansible/2.3/intro_inventory.html#list-of-behavioral-inventory-parameters
+
+
+inventory
+------------------
+[web]
+65.0.61.12		user & pass - sudo without password
+3.108.238.112		user & key - sudo with password
+
+[db]
+65.1.94.141	
+
+[app]
+4.5.5.5		ssh - 24
+4.5.5.6		/opt/python
+4.5.5.7		python 2.x
+4.5.5.8		python 3.x
+4.5.5.9
+
+
+inventory
+------------------
+[web]
+65.0.61.12		ansible_user=centos ansible_ssh_private_key_file=node.pem ansible_become=yes
+3.108.238.112		ansible_user=centos ansible_ssh_private_key_file=node.pem ansible_become=yes
+65.1.94.141		ansible_user=centos ansible_ssh_private_key_file=node.pem ansible_become=yes
+
+
+[db]
+3.109.212.160	ansible_user=centos ansible_ssh_pass=centos123 ansible_become=yes
+	
+[gog:children]
+web
+db
+
+[app]
+4.5.5.5		
+4.5.5.6		
+4.5.5.7		
+4.5.5.8		
+4.5.5.9
+
+ansible gog -i inventory -m yum -a"state=present name=httpd" 
+
+
+inventory
+------------------
+[web]
+65.0.61.12		
+3.108.238.112		
+65.1.94.141		
+
+[web:vars]
+ansible_user=centos 
+ansible_ssh_private_key_file=node.pem 
+ansible_become=yes
+
+[db]
+3.109.212.160	ansible_user=centos ansible_ssh_pass=centos123 ansible_become=yes
+	
+[gog:children]
+web
+db
+
+[app]
+4.5.5.5		
+4.5.5.6		
+4.5.5.7		
+4.5.5.8		
+4.5.5.9
+
+ansible gog -i inventory -m yum -a"state=present name=httpd"
+
+
+Assignment
+======================================
+Create a post for...
+List out Top 20 things you do in your Dev/QA/Staging env and find out Module of Ansible for the Same.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

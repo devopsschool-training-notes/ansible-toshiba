@@ -1,0 +1,586 @@
+ACS
+35.154.128.2
+
+
+Sreepada	13.232.70.45
+Sandhya Rani	15.207.89.240
+nithyasri	13.235.67.116
+Ramya V		3.109.203.248
+Sanchita Rayson Narzary	13.232.181.124
+Monika		65.1.91.98
+Bhavya K S	3.109.202.233	
+Dhanush		13.233.43.12
+Priynaka 	13.235.134.178
+Vijay - 35.154.79.147
+==========================================================
+What is Playbook?
+	a yaml file
+	collection of play
+
+What is Play?
+	Has spec of Hosts & Tasks
+	- AKA - RUN Many modules with param on this Hosts.
+What is Hosts?
+	- localhost
+	- group
+	- group of group
+What is Task?
+	- a Module & its param
+
+
+Hosts:
+Tasks:
+    - Module 1 & Its Param
+    - Module 2 & Its Param	
+    - Module 3 & Its Param
+    - Module 4 & Its Param
+
+Hosts:
+Tasks:
+    - Module 1 & Its Param
+    - Module 2 & Its Param	
+    - Module 3 & Its Param
+    - Module 4 & Its Param
+
+
+
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+  - name: Install Apache in centos7
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+  - name: Copy index.html
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Starting a Apache Server
+    ansible.builtin.service:
+      name: httpd
+      state: started
+========================================================================
+
+Project - Setup a webserver
+
+Step 1 - Install httpd server			- Findout Module & Its Param	- yum [state=present name=httpd]
+Step 2 - Copy index.html /var/www/html		- Findout Module & Its Param	- Copy [ dest=/var/www/html src=index.html]
+Step 3 - Start httpd server			- Findout Module & Its Param	- service [ name=httpd state=started]
+
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name: httpd
+      state: latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: httpd
+      state: started
+
+
+-------------------
+[web]
+35.154.128.2
+13.232.70.45
+15.207.89.240
+
+
+$ ansible-playbook -i inventory first.yaml -u centos --key-file=node.pem -b
+
+
+
+-u centos --key-file=node.pem -b
+
+ansible_user=centos
+ansible_ssh_private_key_file=node.pem
+ansible_become=yes
+
+$ ansible-playbook -i inventory first.yaml
+
+==================================================
+Lab = 10 mins..
+------------------------
+Assignment -----
+https://www.devopsschool.com/blog/ansible-playbook-lab-excercise-part-2/
+@BestDevOps.com
+
+
+
+=========================================================================================
+=========================================================================================
+Variables in Ansible
+=======================================================================================
+key=values
+https://devopsschool.com/tutorial/ansible/variables/index.html
+https://www.devopsschool.com/blog/use-of-runtime-variables-to-save-into-another-variable-using-register-in-ansible/
+
+Variable in Playbook
+- Embed in playbook
+
+- var using ext file
+
+- var using task include
+
+- var using prompt
+
+- register a new var
+
+- command line	
+
+================================================================================
+================================================================================
+
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    packagename: httpd
+    servicename: httpd
+    name: rajesh kumar
+    age: 22
+
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+
+
+
+---
+- name: Update web servers
+  hosts: web
+  vars_files:
+    - ext-vars.yaml
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: include default step variables
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ name }} and My age is {{ age }}
+
+ 
+
+
+    packagename: httpd
+    servicename: httpd
+    name: rajesh kumar singh
+    age: 25
+
+
+
+
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    packagename: httpd
+    servicename: httpd
+    name: rajesh kumar
+    age: 22
+  vars_files:
+    - ext-vars.yaml
+  vars_prompt:
+    - name: "Version"
+      prompt: "Which version Do you want to install?"
+      private: false
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: include default step variables
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ name }} and My age is {{ age }}
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: Which version Do you want to install? {{ Version }}
+
+
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    packagename: httpd
+    servicename: httpd
+    name: rajesh kumar
+    age: 22
+  vars_files:
+    - ext-vars.yaml
+  vars_prompt:
+    - name: "Version"
+      prompt: "Which version Do you want to install?"
+      private: false
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ packagename }}
+      state=latest
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name={{ servicename }}
+      state=started
+  - name: include default step variables
+    include_vars: var-include.yml
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name {{ name }} and My age is {{ age }}
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: Which version Do you want to install? {{ Version }}
+  - name: Ansible register variable basic example
+    shell: "find *.yaml"
+    args:
+      chdir: "/home/centos/ansible/rajesh/rajesh"
+    register: find_output
+  - debug:
+      var: find_output.stdout_lines[0]
+
+
+  -e EXTRA_VARS, --extra-vars EXTRA_VARS
+                        set additional variables as key=value or YAML/JSON, if
+                        filename prepend with @
+
+ansible-playbook -i inventory var5.yaml -e age=28
+ansible-playbook -i inventory var5.yaml -e age=28 -e myname=raju
+ansible-playbook -i inventory var5.yaml -e @nameoffile.yaml
+ansible-playbook -i inventory var5.yaml -e @nameoffile.json
+
+https://www.devopsschool.com/blog/example-code-of-ansible-variable-with-playbook/
+===============================================================
+- I would you age "myname" at all places and share with me - PRCEDENCE
+- All Code Which you tried - Must be in ONE POST @bestdevops.com
+==============================================================
+==============================================================
+https://devopsschool.com/tutorial/ansible/
+==============================================================
+- Conditioning
+- Looping & Iterative
+- Template
+- Handlers
+=================================================================
+=================================================================
+https://devopsschool.com/tutorial/ansible/ansible-conditional-programming-playbooks.html
+
+
+FACT Variable?
+===================================
+Fact of Server == Detailed SYSTEM INFO
+
+Module - setup
+
+ansible localhost -m setup | grep os
+
+=======================================================================
+=======================================================================
+
+---
+- name: Update web servers
+  hosts: web
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name=httpd
+      state=latest
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+
+---
+- name: Update web servers
+  hosts: web
+  gather_facts: False
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name=httpd
+      state=latest
+    when: ansible_os_family == "Debian"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+
+
+
+
+
+
+# You can also use parentheses to group conditions:
+    tasks:
+      - name: "shut down CentOS 6 and Debian 7 systems"
+        command: /sbin/shutdown -t now
+        when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "6") or
+              (ansible_distribution == "Debian" and ansible_distribution_major_version == "7")
+
+
+# Multiple conditions that all need to be true (a logical �and�) can also be specified as a list:
+    tasks:
+      - name: "shut down CentOS 6 systems"
+        command: touch /opt/verizon.txt
+        when:
+          - ansible_distribution == "RedHat"
+          - ansible_distribution_major_version == "7.5"
+
+
+
+    tasks:
+        - shell: echo "I've got '{{ foo }}' and am not afraid to use it!"
+          when: foo is defined
+    
+        - fail: msg="Bailing out. this play requires 'bar'"
+          when: bar is undefined
+
+
+# Following is the simplest example of checking whether the value of a variable. We have created a variable test1 and checking if the value is �Hello World� using the when statement.  
+    - hosts: all
+      vars:
+        test1: "Hello World"
+      tasks:
+      - name: Ansible when variable equals example
+        debug:
+          msg: "Equals"
+        when: test1 == "Hello World"
+
+
+
+
+https://www.devopsschool.com/blog/anatomy-of-ansible-play-defined/
+=================================================================
+- Looping & Iterative
+https://devopsschool.com/tutorial/ansible/ansible-looping-programming-playbooks.html
+
+
+---
+- name: Update web servers
+  hosts: web
+  gather_facts: False
+   
+  tasks:
+  - name: Install the latest version of Apache
+    apt:
+      name=httpd
+      state=latest
+    when: ansible_os_family == "Debian"
+  - name: Install the latest version of Apache
+    yum:
+      name=httpd
+      state=latest
+    when: ansible_os_family == "Redhat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+
+
+
+---
+- name: Update web servers
+  hosts: web
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - httpd
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+
+=========================================================
+- Template
+========================================================
+
+
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    myname: raju
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - httpd
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is = {{ myname }}
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+
+
+How to inter* vars mentioned in the file?
+================================================
+jinga2 template.
+------------------------------------
+Rule#1 - Make sure your file Must .j2
+Rule#2 - Make sure your are using template module
+
+- name: Template a file to /etc/file.conf
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
+
+
+=====================================================
+Handlers
+=====================================================
+		Do you need Web Server RESTART?
+index.html 	no
+port80		yes
+
+
+---
+- name: Update web servers
+  hosts: web
+  vars:
+    myname: raju
+    portnum: 8080
+   
+  tasks:
+  - name: Install the latest version of Apache
+    yum:
+      name={{ item }}
+      state=latest
+    with_items:
+      - git
+      - ntp
+      - httpd
+    when: ansible_os_family == "RedHat"
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - name: Print the vars
+    ansible.builtin.debug:
+      msg: My name is = {{ myname }}
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+  - name: Template a file to /etc/file.conf
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Start service httpd, if not started
+
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=started
+
+  handlers:
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name=httpd
+      state=restarted
+
+
+
+Handlers
+----------------------
+Is collection of Tasks but these tasks get called ONLY when calling tasks has changed=true
+
+https://www.devopsschool.com/blog/calling-ansible-handlers-based-on-os-distributions/
+
+=======================================================================
+Lab - 20 mins
+
+Assignment
+https://www.devopsschool.com/blog/ansible-playbook-lab-excercise-part-3/	Post@bestDevops.com
+https://www.devopsschool.com/blog/ansible-variable-lab-excercise-part-2/	Post@bestDevops.com	
+
+
+
+

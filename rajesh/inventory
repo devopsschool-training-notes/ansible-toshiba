@@ -5,6 +5,17 @@
 35.154.52.66
 13.233.43.66
 
+[windows]
+ec2-3-109-213-168.ap-south-1.compute.amazonaws.com
+
+
+[windows:vars]
+ansible_user=Administrator
+ansible_password="WiTD2q7t2$drr9ku737M@wTiibQNG@*U"
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_python_interpreter=/usr/bin/python
+
 
 [web:vars]
 ansible_user=centos

@@ -93,6 +93,55 @@ Dhanush		13.233.154.201			K?kiLw@KygzhY5?8iqIndRspWMjvTvqB
 Priynaka 	65.0.99.14			36o$(BHZf6mMzy4G2K$Q5I.4NWc@YHqf
 Vijay - 	
 
+=========================================================================
+How to project Password-Key-cert while working with Ansible?
+----------------------
+ENCODING
+ENCRYPTION-------- ansible-vault
+-----------------------------------------------------
+
+
+ 23  ansible-vault
+   24  clear
+   25  ansible-vault enrypt inventory
+   26  clear
+   27  ansible-vault encrypt inventory
+   28  clear
+   29  ls
+   30  more inventory
+   31  clear
+   32  ansible web -i inventory -m setup
+   33  clear
+   34  ls
+   35  ansible windows -i inventory -m setup
+   36  ansible -h
+   37  clear
+   38  ansible windows -i inventory --ask-vault-pass -m setup
+   39  clear
+   40  ansible-vault decrypt inventory
+   41  more inventory
+   42  clear
+   43  ls
+   44  ansible-vault create
+   45  clear
+   46  ansible-vault create raj
+   47  ls
+   48  more raj
+   49  ansible-vault view raj
+   50  ansible-vault edit raj
+   51  clear
+   52  ansible-vault
+   53  clear
+   54  ansible-vault rekey raj
+   55  clear
+   56  ansible-vault rekey raj
+   57  ansible-vault
+   58  clear
+   59  ls
+   60  ansible-vault
+   61  clear
+   62  ansible-vault encrypt_string
+   63  ansible-vault
 
 
 

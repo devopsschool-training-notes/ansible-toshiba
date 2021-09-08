@@ -1,0 +1,104 @@
+ACS
+-----------------
+13.126.38.24
+
+ACS				ARS
+------------------------------------------------------
+Linux				WINDOWS
+		http/https
+		using winrm
+
+				DOTNET4.5 PS3.0
+-----------------------------------------------------
+Step 1: Enable ACS for Windows ARS
+https://devopsschool.com/tutorial/ansible/ansible-windows-control-setup.html
+
+Step 2: Configure ARS
+https://stackoverflow.com/questions/49800534/powershell-could-not-create-ssl-tsl-secure
+https://devopsschool.com/tutorial/ansible/ansible-windows-remote-setup.html
+
+Step 3: run this command in ARS
+$ Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
+
+Step 4: Configure windows inventory
+
+[windows]
+ec2-3-109-213-168.ap-south-1.compute.amazonaws.com
+
+
+[windows:vars]
+ansible_user=Administrator
+ansible_password="WiTD2q7t2$drr9ku737M@wTiibQNG@*U"
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+
+
+Step 5: Run Windows Adhoc command
+https://docs.ansible.com/ansible/2.9/modules/list_of_windows_modules.html
+
+Step 6: Run Windows Playbook 
+https://docs.ansible.com/ansible/2.9/modules/list_of_windows_modules.html
+
+https://devopsschool.com/tutorial/ansible/ansible-windows-adhoc-commands.html
+https://devopsschool.com/tutorial/ansible/ansible-windows-playbooks.html
+
+Public DNS	ec2-3-109-213-168.ap-south-1.compute.amazonaws.com
+User name	Administrator
+Password	
+ 
+
+
+$password = "WiTD2q7t2$drr9ku737M@wTiibQNG@*U"
+
+
+52.66.243.214
+==============================
+Installing python3
+$ sudo yum update -y
+$ sudo yum install -y python3
+
+Installing pip3
+$ python3 -m ensurepip --upgrade
+$ sudo yum install wget -y
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python3 get-pip.py
+$ pip3 -V
+
+$ sudo yum install python3-pip -y
+$ rpm -qa | grep -i python3-pip
+$ pip3 -V
+
+Installing Ansible 4.x
+python3 -m pip install --user ansible
+
+$ sudo pip3 install markupsafe
+$ sudo pip3 install xmltodict
+$ pip3 install "pywinrm>=0.3.0" # pip install pywinrm --ignore-installed
+
+
+
+============================
+Ansible Tag
+
+
+Sreepada	ec2-3-109-213-168.ap-south-1.compute.amazonaws.com	Administrator/WiTD2q7t2$drr9ku737M@wTiibQNG@*U
+Sandhya Rani	65.2.57.171			)T)(nEosZZm.JACh46AR.4qbb@z?O%pl
+nithyasri	65.1.93.49			wNq)(bAPDXCC;Tc-w389%e?fbg@Z;jHP	
+Ramya V		13.235.91.150			R&5GFIEn4Z4gQY=tkm;fGG@J8cPdxPQE	
+Sanchita Rayson Narzary		15.207.19.199	vvcgVlHEXA!;J5jw6slz$oILfDd6$bmv
+Monika		13.233.156.106			$v*qWU=8RV;BvVSmLVMUUb-!AzEH5zId	
+Bhavya K S	13.235.90.64			Z??(jPEbH%ngpPF!e!esIsAyWi*$2K&t
+Dhanush		13.233.154.201			K?kiLw@KygzhY5?8iqIndRspWMjvTvqB
+Priynaka 	65.0.99.14			36o$(BHZf6mMzy4G2K$Q5I.4NWc@YHqf
+Vijay - 	
+
+
+
+
+
+
+
+
+
+

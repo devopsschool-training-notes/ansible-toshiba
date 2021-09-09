@@ -44,7 +44,33 @@ NEW PACKAGE ---->
 
 
 
+   1  clear
+    2  ls
+    3  cd
+    4  ls
+    5  wget https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+    6  yum update
+    7  clea
 
+   11  yum install wget -y
+r
+   14  ls
+   15  wget https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+   16  ls
+   17  tar -zxvf ansible-tower-setup-latest.tar.gz
+   18  clear
+   19  ls
+   20  cd ansible-tower-setup-
+   21  ls
+   22  cd ansible-tower-setup-3.8.4-1
+   23  cleare
+   24  clear
+   25  ls
+   26  vi inventory
+   27  ./setup.sh
+   28  history
+
+13.233.172.163
 
 
 
@@ -56,4 +82,58 @@ Ansible Module Dev
 --------------------
 https://www.devopsschool.com/blog/ansible-module-sample-code-to-work-with-api-example-1/
 https://www.devopsschool.com/blog/ansible-module-sample-code-using-linux-bash-script-example-5/
+
+
+=======================================================================================================
+Create a ORG
+Create a user
+	Add a user to ORG
+Add a Team
+	Add a User to it
+
+============================
+Inventory	== Inventory
+Playbook	== Project
+Credentials	== Credentials(ARS pass and key)
+
+ansible-playbook inventory playbook credential
+==============================================
+		Template
+		- RUN ----------
+		- CHECK --------
+	
+
+
+13.233.163.226
+centos
+key
+
+
+
+https://13.233.172.163/
+admin
+admin123
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

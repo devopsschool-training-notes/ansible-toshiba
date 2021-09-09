@@ -1,0 +1,59 @@
+Ansible Tower
+--------------------
+3.109.59.164
+
+What is Ansible Tower?
+--------------------------------
+- GUI BASED
+- 10 ARS is free - Later Paid
+- Manage
+	- Multiple Org
+		Team 
+			Role
+				Users
+		Multiple Projects
+			-- Playbook
+			-- Inventory
+			-- Cred
+
+Problems with Ansible for Org.
+----------------------------------
+Org - We have multiple Project - Product - DIff server - Diff Team 
+How can we Manage Multiple Roles for diff Projects? Everyone would have every access
+How can we manager multiple Inventory for diff project..Everyone would have every access
+Auth and Auth - Everyone would have every access
+History of Deployment
+LDAP
+Deployment Log Storage
+Role based Access
+
+			   --------
+
+How to Install it?
+-------------------------
+
+
+TOWER - CENTOS 7.7
+
+
+OLD VERSION ----> DO NOT USE OLD PACK.
+NEW PACKAGE ----> 
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ansible Module Dev
+--------------------
+https://www.devopsschool.com/blog/ansible-module-sample-code-to-work-with-api-example-1/
+https://www.devopsschool.com/blog/ansible-module-sample-code-using-linux-bash-script-example-5/
+
